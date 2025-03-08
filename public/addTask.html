@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/style.css" />
+
+		<!-- js -->
+		<script defer src="./main.js"></script>
+
+		<title>Nueva Tarea</title>
+	</head>
+	<body>
+		<div class="container">
+			<nav class="navbar">
+				<div class="user-info">
+					<p class="user-email">Mats</p>
+					<p class="user-name">Luis</p>
+				</div>
+
+				<div class="actions">
+					<button class="btn" onclick="Logout()">Cerrar Sesión</button>
+				</div>
+			</nav>
+
+			<section>
+				<h1>Nueva Tarea</h1>
+			</section>
+
+			<section class="content">
+				<div class="content-body">
+					<form action="" class="form bg-transparented">
+						<div class="form-group w-50">
+							<label for="title">Título</label>
+							<input
+								type="text"
+								class="input"
+								id="title"
+								placeholder="Título de la tarea"
+							/>
+						</div>
+						<div class="form-group w-50">
+							<label for="category">Categoría</label>
+							<select name="category" id="category" class="input">
+								<option value="">Selecciona una categoría</option>
+							</select>
+						</div>
+						<div class="form-group w-full">
+							<label for="description">Descripción</label>
+							<textarea
+								class="input"
+								id="description"
+								placeholder="Descripción de la tarea"
+								rows="6"
+							></textarea>
+						</div>
+						<div class="form-group w-full">
+							<label for="file">Archivo</label>
+							<input type="file" class="input" id="file" name="file" />
+						</div>
+					</form>
+				</div>
+
+				<div class="content-footer">
+					<a href="./tareas.html" class="btn btn-default border p-2">Volver</a>
+					<button class="btn btn-primary p-2" onclick="createTask()">
+						Crear Tarea
+					</button>
+				</div>
+			</section>
+
+			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Lorem ipsum
+			dolor sit amet consectetur adipisicing elit. Tenetur, voluptatum quibusdam
+			laudantium sapiente sequi tempore cum ut optio consequatur sunt quaerat
+			illum facere reiciendis ad fugiat est qui asperiores ducimus?
+		</div>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', async () => {
+				ShowUserInfo()
+
+				const responseAccess = await GetAccessToken()
+
+				if (!responseAccess.success) {
+					return toast({
+						title: responseAccess.status_text,
+						message: responseAccess.message,
+						type: 'error',
+					})
+				}
+
+				const responseCategories = await GetCategories({
+					accessToken: responseAccess.data.accessToken,
+				})
+
+				if (!responseCategories.success) {
+					return toast({
+						title: responseCategories.status_text,
+						message: responseCategories.message,
+						type: 'error',
+					})
+				}
+
+				ShowCategories({
+					categories: responseCategories.data,
+				})
+			})
+		</script>
+	</body>
+</html>
