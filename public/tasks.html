@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/style.css" />
+
+		<!-- js -->
+		<script defer src="./main.js"></script>
+
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+		></script>
+
+		<title>Listado de Tareas</title>
+	</head>
+	<body>
+		<div class="container">
+			<nav class="navbar">
+				<div class="user-info"></div>
+
+				<button
+					class="btn p-2 flex justify-center item-center gap-1"
+					onclick="logout()"
+				>
+					<span class="ion-xl">
+						<ion-icon name="log-out-outline"></ion-icon>
+					</span>
+					<span class="text-sm">Salir</span>
+				</button>
+			</nav>
+
+			<section>
+				<h1>Listado de Tareas</h1>
+			</section>
+
+			<section class="content">
+				<div class="content-header">
+					<div class="search w-50 relative">
+						<label for="search">Buscar tarea</label>
+						<input
+							type="text"
+							class="input"
+							id="search"
+							placeholder="Buscar tarea"
+						/>
+						<button class="icon-wrapper" onclick="searchTask()">
+							<ion-icon name="search-outline"></ion-icon>
+						</button>
+					</div>
+
+					<div class="filters w-50">
+						<div class="filter-status flex flex-1 flex-col gap-1">
+							<label for="status"> Estado </label>
+							<select name="" id="status" onchange="filterTasks('status')">
+								<option value="">Todos</option>
+								<option value="completed">Completadas</option>
+								<option value="pending">Pendientes</option>
+							</select>
+						</div>
+
+						<div class="filter-category flex flex-1 flex-col gap-1">
+							<label for="category"> Categoría</label>
+							<select
+								name="category"
+								id="category"
+								onchange="filterTasks('category')"
+							>
+								<option value="">Todas</option>
+							</select>
+						</div>
+
+						<a
+							href="./addTask.html"
+							class="btn btn-default p-2 h-full flex justify-center item-center"
+						>
+							<ion-icon name="add-outline" class="ion-xl"></ion-icon>
+							<span> Nueva </span>
+						</a>
+					</div>
+				</div>
+
+				<div class="content-body">
+					<table>
+						<thead>
+							<tr>
+								<th>Titulo</th>
+								<th>Fecha</th>
+								<th>Categoría</th>
+								<th>Estado</th>
+								<th class="text-center">Acciones</th>
+							</tr>
+						</thead>
+						<tbody id="tasks" class="tasks"></tbody>
+					</table>
+				</div>
+
+				<div class="content-footer">
+					<div class="perPage flex flex-1">
+						<select
+							name="perPage"
+							id="perPage"
+							class="w-25"
+							onchange="changePerPage()"
+						>
+							<option value="10">10</option>
+							<option value="20">20</option>
+						</select>
+					</div>
+					<div class="pagination flex gap-1 flex-1 justify-center"></div>
+
+					<div class="showing flex flex-1 justify-end">
+						<span id="showing" class="text-md"></span>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', async () => {
+				ShowUserInfo()
+
+				chargeContent()
+			})
+		</script>
+	</body>
+</html>

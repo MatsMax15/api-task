@@ -3,14 +3,7 @@ import path from 'path'
 import { errorResponse } from '../helpers/responseHelper.js'
 
 // 📂 Storage
-const storage = multer.memoryStorage({
-	// destination: (req, file, cb) => {
-	// 	cb(null, './public/assets/uploads/')
-	// },
-	filename: (req, file, cb) => {
-		cb(null, Date.now() + path.extname(file.originalname))
-	},
-})
+const storage = multer.memoryStorage()
 
 // 📌 Filters
 const fileFilter = (req, file, cb) => {
@@ -31,24 +24,24 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
 	storage,
+	limits: { fileSize: 2 * 1024 * 1024, files: 1 },
 	fileFilter,
-	limits: { fileSize: 2 * 1024 * 1024 },
 })
 
 // 📌 Middleware
 export const uploadMiddleware = (req, res, next) => {
 	upload.single('file')(req, res, (err) => {
-		const file = req.file
-		if (!file) next()
-
 		if (err) {
-			console.log(err)
+			const message =
+				err.code === 'LIMIT_FILE_SIZE'
+					? 'File size too large. Max limit is 2MB'
+					: err.message
 
 			return errorResponse({
 				res,
 				status_text: 'Bad Request File',
 				status_code: 400,
-				message: err.message,
+				message,
 			})
 		}
 

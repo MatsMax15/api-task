@@ -66,6 +66,18 @@ export const taskValidator = [
 		.exists()
 		.isString()
 		.isLength({ min: 3 }),
+	body('dateLimit', 'Date limit is not valid')
+		.trim()
+		.exists()
+		.isDate()
+		.custom((value) => {
+			const date = new Date(value)
+			const currentDate = new Date()
+			if (date < currentDate) {
+				throw new Error('Date limit is not valid')
+			}
+			return true
+		}),
 	body('description', 'Description is not valid')
 		.trim()
 		.exists()
@@ -87,5 +99,14 @@ export const taskValidator = [
 			throw new Error('User is not valid')
 		}
 	}),
+	validatorResult,
+]
+
+export const taskStatusValidator = [
+	body('status', 'Status is not valid')
+		.trim()
+		.exists()
+		.isString()
+		.isIn(['pending', 'completed']),
 	validatorResult,
 ]

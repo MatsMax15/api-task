@@ -40,5 +40,14 @@ export const User = sequelize.define(
 	}
 )
 
-User.hasMany(Token, { foreignKey: 'userId', onDelete: 'CASCADE' })
-User.hasMany(Task, { foreignKey: 'userId', onDelete: 'CASCADE' })
+User.hasMany(Token, {
+	foreignKey: 'userId',
+	as: 'tokens',
+	onDelete: 'CASCADE',
+})
+
+User.hasMany(Task, {
+	foreignKey: 'userId',
+	as: 'tasks',
+	onDelete: 'CASCADE',
+})

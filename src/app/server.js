@@ -8,6 +8,8 @@ import authRouter from '../routes/auth.routes.js'
 import taskRouter from '../routes/task.routes.js'
 import categoryRouter from '../routes/category.routes.js'
 
+import swaggerSetup from './../../swagger.js'
+
 class Server {
 	constructor() {
 		this.app = express()
@@ -18,6 +20,8 @@ class Server {
 			tasks: `${this.apiPath}/tasks`,
 			category: `${this.apiPath}/categories`,
 		}
+
+		swaggerSetup(this.app)
 
 		// middlewares
 		this.middlewares()
@@ -30,15 +34,13 @@ class Server {
 		this.app.listen(this.port, () => {
 			console.log(`Server is running on port ${this.port}`)
 			console.log(`http://localhost:${this.port}`)
+			console.log(`http://localhost:${this.port}/api-docs`)
 		})
 	}
 
 	middlewares() {
 		// parse body
 		this.app.use(express.json())
-
-		// form data
-		// this.app.use(express.urlencoded({ extended: true }))
 
 		// cors
 		this.app.use(cors())

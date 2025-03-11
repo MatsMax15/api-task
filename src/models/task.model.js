@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/sequalize.js'
-// import { Category } from './category.model.js'
+import { Category } from './category.model.js'
 
 export const Task = sequelize.define(
 	'task',
@@ -8,7 +8,6 @@ export const Task = sequelize.define(
 		id: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
-			autoIncrement: false,
 			primaryKey: true,
 		},
 		categoryId: {
@@ -36,6 +35,13 @@ export const Task = sequelize.define(
 			type: DataTypes.UUID,
 			allowNull: false,
 		},
+		dateLimit: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			get() {
+				return this.getDataValue('dateLimit').toISOString().split('T')[0]
+			},
+		},
 	},
 	{
 		defaultScope: {
@@ -43,3 +49,9 @@ export const Task = sequelize.define(
 		},
 	}
 )
+
+Task.belongsTo(Category, {
+	foreignKey: 'categoryId',
+	as: 'category',
+	onDelete: 'NO ACTION',
+})

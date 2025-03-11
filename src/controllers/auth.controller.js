@@ -87,6 +87,27 @@ export const login = async (req = request, res = response) => {
 	}
 }
 
+export const logout = async (req = request, res = response) => {
+	const { refreshToken } = req.cookies
+
+	try {
+		await Token.destroy({ where: { token: refreshToken } })
+
+		res.clearCookie('refreshToken')
+
+		return successResponse({
+			res,
+			message: 'User logged out',
+		})
+	} catch (err) {
+		return errorResponse({
+			res,
+			message: err.message,
+			status_code: 500,
+		})
+	}
+}
+
 export const refresh = async (req = request, res = response) => {
 	const { refreshToken } = req.cookies
 

@@ -14,36 +14,59 @@
 	</head>
 	<body>
 		<h1>Prueba Técnica</h1>
-		<form id="loginForm">
-			<div class="form-group">
-				<div>
-					<label for="email">Email:</label>
+		<form id="loginForm" class="form-auth">
+			<div class="form-header">
+				<h1>Login</h1>
+			</div>
+
+			<div class="form-body">
+				<div class="form-group">
+					<label for="email" class="text-sm">Email</label>
 					<input
 						type="email"
 						id="email"
 						name="email"
+						placeholder="Email"
 						required
-						value="lmax@mail.com"
 					/>
 				</div>
-				<div>
-					<label for="password">Password:</label>
+
+				<div class="form-group relative">
+					<label for="password" class="text-sm">Contraseña</label>
 					<input
 						type="password"
 						id="password"
 						name="password"
+						class="password"
+						placeholder="Contraseña"
 						required
-						value="123456"
 					/>
+					<button type="button" class="btn icon" onclick="togglePass(this)">
+						<span>show</span>
+					</button>
 				</div>
-				<a href="./signup.html" class="text-sm">Crear cuenta</a>
 			</div>
 
-			<button type="button" onclick="login(this)">Ingresar</button>
+			<div class="form-footer">
+				<div class="form-group">
+					<button type="button" class="btn btn-primary p-2" onclick="login()">
+						Ingresar
+					</button>
+
+					<div class="divider">
+						<span></span>
+						<span></span>
+					</div>
+
+					<a href="./signup.html" class="btn btn-default text-sm p-2"
+						>Crear cuenta</a
+					>
+				</div>
+			</div>
 		</form>
 
 		<script>
-			const login = async (e) => {
+			const login = async () => {
 				const $email = document.getElementById('email').value
 				const $password = document.getElementById('password').value
 
@@ -78,7 +101,7 @@
 				})
 
 				setTimeout(() => {
-					window.location.href = './tareas.html'
+					window.location.href = './tasks.html'
 				}, 3000)
 			}
 		</script>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/style.css" />
+
+		<!-- js -->
+		<script defer src="./main.js"></script>
+
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+		></script>
+
+		<title>Detalles de Tarea</title>
+	</head>
+	<body>
+		<div class="container">
+			<nav class="navbar">
+				<div class="user-info"></div>
+
+				<button
+					class="btn p-2 flex justify-center item-center gap-1"
+					onclick="logout()"
+				>
+					<span class="ion-xl">
+						<ion-icon name="log-out-outline"></ion-icon>
+					</span>
+					<span class="text-sm">Salir</span>
+				</button>
+			</nav>
+
+			<section>
+				<h1>Detalles de Tarea</h1>
+			</section>
+
+			<section class="content">
+				<div class="content-body">
+					<div class="task-header form-group w-full">
+						<h2 id="taskTitle">Nombre de la Tarea</h2>
+
+						<div class="task-info flex">
+							<p class="task-detail w-33">
+								<strong class="text-sm">Categoria:</strong>
+								<span id="category"></span>
+							</p>
+							<p class="task-detail w-33">
+								<strong class="text-sm">Fecha de entrega:</strong>
+								<span id="dateLimit"></span>
+							</p>
+
+							<p class="task-detail w-33">
+								<strong class="text-sm">Estado:</strong>
+								<span id="status"></span>
+							</p>
+						</div>
+					</div>
+
+					<div class="task-description form-group w-full">
+						<strong class="text-sm">Descripción:</strong>
+						<p id="description"></p>
+					</div>
+
+					<div class="form-group w-full" id="container-file">
+						<strong class="text-sm">📎 Archivo adjunto:</strong>
+						<div id="file-preview" class="file-preview relative"></div>
+					</div>
+
+					<div class="form-group w-full">
+						<img src="./assets/uploads/tasks/img-1.jpg" alt="" class="img" />
+					</div>
+				</div>
+
+				<div class="content-footer">
+					<a href="./tareas.html" class="btn btn-default border p-2">Volver</a>
+				</div>
+			</section>
+		</div>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', async () => {
+				ShowUserInfo()
+
+				detailTask()
+			})
+		</script>
+	</body>
+</html>
