@@ -15,14 +15,18 @@ Antes de instalar la API, asegúrate de tener instalado:
 
 1. Clona el repositorio:
    ```sh
-   📥 git clone <URL_DEL_REPOSITORIO>
+   📥 git clone https://github.com/MatsMax15/api-task.git
    📂 cd api-task
    ```
-2. Instala las dependencias con **pnpm**:
+2. Cambia a la rama `test`:
+   ```bash
+   git checkout test
+   ```
+3. Instala las dependencias con **pnpm**:
    ```sh
    pnpm install
    ```
-3. Crea un archivo `.env` basado en `.env.example` y configura las variables de entorno.
+4. Crea un archivo `.env` basado en `.env.example` y configura las variables de entorno.
 
 ## 📦 Configuración de la base de datos
 
